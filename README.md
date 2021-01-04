@@ -1,2 +1,2 @@
 # Unix-Shell-SQL-Database-
-# Unix-Shell-SQL-Database-
+This program is a simple user interface for creating a database. This program for an assignment in the course CPS 510. The menu provides users 4 options. To drop the tables, creates tables, populate tables, and output six queries based the populated data. This is done by entering a number in menu. The menu provide a dictionary of which number corresponds to each action. When an option is selected, it will load the sql code in the corresponding text file and execute it. For the queries, it load another menu selection. The user inputs a number and a specific query will be outputted aside from outputting all of them at once.
