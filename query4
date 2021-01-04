@@ -1,0 +1,11 @@
+SELECT DISTINCT car_model, branch_id
+FROM car c1
+WHERE  EXISTS
+       (SELECT *
+        FROM car_type t
+        WHERE  t.car_daily_cost>75
+               AND c1.availibility=1 
+               AND t.insurance_multiplier>0.5
+               AND c1.car_model <> 'civic'
+               AND c1.car_model=t.car_model);
+

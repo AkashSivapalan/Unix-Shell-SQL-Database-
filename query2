@@ -1,0 +1,4 @@
+SELECT branch_id,COUNT(license_plate)AS 
+Number_of_cars
+FROM car
+GROUP BY branch_id;

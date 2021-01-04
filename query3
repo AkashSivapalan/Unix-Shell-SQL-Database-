@@ -1,0 +1,8 @@
+SELECT customer_name,license_number
+FROM customer
+MINUS
+(SELECT customer_name,c.license_number
+        FROM   customer c, bank_account b
+        WHERE  c.license_number=b.license_number
+               AND balance>500);
+

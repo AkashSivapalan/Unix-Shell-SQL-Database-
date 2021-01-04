@@ -1,0 +1,7 @@
+SELECT license_number
+FROM driving_record
+WHERE num_of_accidents<2 AND num_of_demerit_points=0
+UNION
+(SELECT license_number
+FROM customer 
+WHERE customer_age BETWEEN 30 AND 60);

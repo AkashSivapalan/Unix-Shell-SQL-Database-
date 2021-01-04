@@ -1,0 +1,19 @@
+drop table reviews;
+drop table contacts;
+drop table insures;
+drop table contains;
+drop table charges;
+drop table updates;
+drop table has_bank_account;
+drop table has_driving_record;
+drop table uses;
+drop table driving_record;
+drop table state_type;
+drop table bank_account;
+drop table car_type;
+drop table car;
+drop table insurance_company;
+drop table customer_data_file;
+drop table rental_company;
+drop table customer;
+

@@ -1,0 +1,97 @@
+CREATE TABLE customer(
+        license_number CHAR(15) NOT NULL UNIQUE,
+        customer_name VARCHAR2(30),
+        customer_password NUMBER(5),
+        customer_age NUMBER(2),
+        customer_insurance VARCHAR2(30)); 
+        
+CREATE TABLE rental_company(
+        branch_id NUMBER(4) NOT NULL UNIQUE,
+        company_name VARCHAR2(30) UNIQUE,
+        rating_score DECIMAL(2,1));
+        
+CREATE TABLE insurance_company(
+        insurance_name VARCHAR2(30) NOT NULL UNIQUE,
+        liability_amount DECIMAL(9,2),
+        premium_cost DECIMAL(5,2));
+                
+CREATE TABLE car(
+        license_plate CHAR(7) NOT NULL UNIQUE,
+        branch_id REFERENCES rental_company(branch_id) ON DELETE CASCADE,
+        availibility NUMBER(1),
+        car_model VARCHAR2(30));
+        
+CREATE TABLE car_type(
+        car_model VARCHAR2(30) NOT NULL UNIQUE,
+        car_daily_cost DECIMAL(6,2),
+        insurance_multiplier DECIMAL(2,1));
+
+CREATE TABLE bank_account(
+        account_number NUMBER(16) NOT NULL UNIQUE,
+        license_number REFERENCES customer(license_number) ON DELETE CASCADE,   
+        balance DECIMAL(9,2));
+        
+CREATE TABLE state_type(
+        balance DECIMAL(9,2) NOT NULL UNIQUE,
+        account_state VARCHAR(15));
+        
+CREATE TABLE driving_record(
+        license_number REFERENCES customer(license_number) ON DELETE CASCADE, 
+        PRIMARY KEY(license_number),
+        num_of_accidents NUMBER(2),
+        num_of_demerit_points NUMBER(2),
+        num_of_driving_violations NUMBER(2));
+        
+CREATE TABLE customer_data_file(
+        file_no NUMBER(4) NOT NULL UNIQUE,
+        license_number CHAR(15) NOT NULL,
+        check_in_time DATE,                                                     
+        check_out_time DATE,
+        license_plate CHAR(7) UNIQUE,                                          
+        total_cost DECIMAL(7,2), 
+        branch_id REFERENCES rental_company(branch_id) ON DELETE CASCADE);
+        
+CREATE TABLE uses(
+        license_number REFERENCES customer(license_number) ON DELETE CASCADE, 
+        branch_id REFERENCES rental_company(branch_id) ON DELETE CASCADE,
+        PRIMARY KEY(license_number,branch_id));
+        
+CREATE TABLE has_driving_record(                               
+        license_number REFERENCES customer(license_number)ON DELETE CASCADE,
+        PRIMARY KEY(license_number));
+        
+CREATE TABLE has_bank_account(
+        license_number REFERENCES customer(license_number) ON DELETE CASCADE,
+        account_number REFERENCES bank_account(account_number) ON DELETE CASCADE,
+        PRIMARY KEY(license_number,account_number));
+        
+CREATE TABLE charges(
+        branch_id REFERENCES rental_company(branch_id) ON DELETE CASCADE,
+        account_number REFERENCES bank_account(account_number) ON DELETE CASCADE,
+        PRIMARY KEY(branch_id,account_number));
+        
+CREATE TABLE contains(
+        branch_id REFERENCES rental_company(branch_id) ON DELETE CASCADE,
+        license_plate REFERENCES car(license_plate) ON DELETE CASCADE,
+        PRIMARY KEY(branch_id,license_plate));
+        
+CREATE TABLE updates(
+        branch_id REFERENCES rental_company(branch_id) ON DELETE CASCADE,
+        file_no REFERENCES customer_data_file(file_no) ON DELETE CASCADE,
+        PRIMARY KEY(branch_id,file_no));
+
+CREATE TABLE insures(
+        insurance_name REFERENCES insurance_company(insurance_name) ON DELETE CASCADE,
+        license_plate REFERENCES car(license_plate) ON DELETE CASCADE,
+        PRIMARY KEY(insurance_name,license_plate));
+
+CREATE TABLE contacts(
+        branch_id REFERENCES rental_company(branch_id) ON DELETE CASCADE,
+        insurance_name REFERENCES insurance_company(insurance_name) ON DELETE CASCADE,
+        PRIMARY KEY(branch_id,insurance_name));
+        
+CREATE TABLE reviews(
+        insurance_name REFERENCES insurance_company(insurance_name) ON DELETE CASCADE,
+        license_number REFERENCES driving_record(license_number) ON DELETE CASCADE,
+        PRIMARY KEY(license_number,insurance_name));
+        

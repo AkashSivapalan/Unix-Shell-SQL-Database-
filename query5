@@ -1,0 +1,6 @@
+SELECT branch_id, MIN(car_daily_cost)
+FROM car,car_type
+WHERE car.car_model=car_type.car_model
+GROUP BY branch_id
+ORDER BY branch_id ASC;
+

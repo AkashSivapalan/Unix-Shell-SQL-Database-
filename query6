@@ -1,0 +1,4 @@
+SELECT customer_name,license_number
+FROM customer 
+WHERE customer_insurance LIKE 'All%';
+
