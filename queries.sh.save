@@ -1,8 +1,8 @@
 #!/bin/sh
 export LD_LIBRARY_PATH=/usr/lib/oracle/12.1/client64/lib
 
-username="a7sivapa"
-password="07257795"
+username="username"
+password="password"
 
 	echo '1. Select rooms that are not in Wing #2'
 	echo '2. Select rooms that are on the same floor as amenities'
